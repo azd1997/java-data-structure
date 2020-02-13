@@ -19,12 +19,12 @@ public class Array<E> {
     }
 
     // 获取实际数据量
-    public int getSize() {
+    public int size() {
         return size;
     }
 
     // 获取数组容量
-    public int getCapacity() {
+    public int capacity() {
         return data.length;
     }
 
@@ -66,6 +66,16 @@ public class Array<E> {
             throw new IllegalArgumentException("Get failed. Require index >= 0 and < size");
         }
         return data[index];
+    }
+
+    // 查询数组第一个元素
+    public E getFirst() {
+        return get(0);
+    }
+
+    // 查询数组最后一个元素
+    public E getLast() {
+        return get(size-1);
     }
 
     // 更新数据 O(1)
