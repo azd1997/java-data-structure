@@ -69,12 +69,12 @@ public class Array<E> {
     }
 
     // 查询数组第一个元素
-    public E getFirst() {
+    public E first() {
         return get(0);
     }
 
     // 查询数组最后一个元素
-    public E getLast() {
+    public E last() {
         return get(size-1);
     }
 
