@@ -10,12 +10,14 @@ public class Main {
 
         ArrayQueue<Integer> arrayQueue = new ArrayQueue<Integer>();
         LoopQueue<Integer> loopQueue = new LoopQueue<Integer>();
+        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<Integer>();
 
         double t1 = testQueue(arrayQueue, opCount);
         double t2 = testQueue(loopQueue, opCount);
+        double t3 = testQueue(linkedListQueue, opCount);
 
-        System.out.println("t1 = " + t1 + " t2 = " + t2);
-        //t1 = 1.18555393t2 = 0.034129895
+        System.out.println("t1 = " + t1 + " t2 = " + t2 + " t3 = " + t3);
+        // t1 = 1.248188572 t2 = 0.041429475 t3 = 0.027550181
     }
 
     private static double testQueue(Queue<Integer> q, int opCount) {

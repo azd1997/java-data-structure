@@ -18,6 +18,8 @@ public class Main {
 
         System.out.println("t1 = " + t1 + " t2 = " + t2);
         //t1 = 0.138229973 t2 = 0.737718307
+        // 在本机上链表栈更慢一些。但这不是必然的，取决于设备与JVM等等因素
+        // 还跟数据、操作规模有关。
     }
 
     private static double testStack(Stack<Integer> stack, int opCount) {
