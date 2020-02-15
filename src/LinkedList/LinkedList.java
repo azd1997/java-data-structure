@@ -75,10 +75,12 @@ public class LinkedList<E> {
         size++;
     }
 
+    // O(1)
     public void addFirst(E e) {
         add(0, e);
     }
 
+    // O(n)
     public void addLast(E e) {
         add(size, e);
     }
@@ -97,10 +99,12 @@ public class LinkedList<E> {
         return cur.e;
     }
 
+    // O(1)
     public E first() {
         return get(0);
     }
 
+    // O(n)
     public E last() {
         return get(size-1);
     }

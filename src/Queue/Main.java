@@ -14,7 +14,7 @@ public class Main {
         double t1 = testQueue(arrayQueue, opCount);
         double t2 = testQueue(loopQueue, opCount);
 
-        System.out.println("t1 = " + t1 + "t2 = " + t2);
+        System.out.println("t1 = " + t1 + " t2 = " + t2);
         //t1 = 1.18555393t2 = 0.034129895
     }
 
