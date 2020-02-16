@@ -1,5 +1,6 @@
 package Tree;
 
+import Queue.ArrayQueue;
 import Stack.ArrayStack;
 
 // 二分搜索树
@@ -112,6 +113,9 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    // 前中后序遍历又称深度优先遍历，而层序遍历则是广度优先遍历
+
+
     // 前序遍历(traverse)
     public void preOrder() {
         preOrder1(root);
@@ -185,6 +189,19 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
     }
 
+    // 层序遍历 （广度优先遍历）
+    public void levelOrder() {
+        ArrayQueue<Node> queue = new ArrayQueue<Node>();
+        queue.enqueue(root);
+        while (!queue.isEmpty()) {
+            Node cur = queue.dequeue();
+            System.out.println(cur.e);
+
+            if (cur.left != null) queue.enqueue(cur.left);
+            if (cur.right != null) queue.enqueue(cur.right);
+        }
+    }
+
 
     private void generateBSTString(Node node, int depth, StringBuilder res) {
         if (node == null) {
@@ -221,6 +238,8 @@ public class BST<E extends Comparable<E>> {
         bst.inOrder();
         System.out.println("=============");
         bst.postOrder();
+        System.out.println("=============");
+        bst.levelOrder();
 
         //System.out.println(bst);
     }
