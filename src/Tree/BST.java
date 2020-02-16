@@ -284,6 +284,49 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 删除任意值
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    // 移除node为根的子树中值为e的节点，返回新的根
+    private Node remove(Node node, E e) {
+        if (node == null) return null;
+
+        if (e.compareTo(node.e) < 0) {
+            node.left = remove(node.left, e);
+            return node;
+        } else if (e.compareTo(node.e) > 0) {
+            node.right = remove(node.right, e);
+            return node;
+        } else {    // e == node.e，也就是要删除这个节点
+            // 待删除节点左子树为空
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            // 待删除节点右子树为空
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            // 待删除节点左右子树都不为空
+            // node.left != null && node.right != null
+            // 删除左右都有孩子的节点d，要找到其后继s = min(d.right)，
+            // 然后s.right = delmin(d.right)， s.left = d.left，
+            // 然后删除d，s是新的子树的根
+            // (这种情况的删除，还有另一种做法，就是用node的左子树最大值节点作为后继。)
+            Node successor = minimum(node.right);   // 后继结点
+            // 注意removeMin中已经size--了
+            successor.right = removeMin(node.right);    // 删除后继结点原先位置，并将剩下的子树挂载到后继结点右侧
+            successor.left = node.left;     // 将left左子树挂载到后继结点左侧
+            node.left = null; node.right = null;    // 去引用
+            return successor;
+        }
+    }
 
     private void generateBSTString(Node node, int depth, StringBuilder res) {
         if (node == null) {
@@ -350,28 +393,35 @@ public class BST<E extends Comparable<E>> {
 //        System.out.println("removeMin test completed");
 
 
-        /*removeMax test*/
-        BST<Integer> bst = new BST<Integer>();
-        Random rand = new Random();
+//        /*removeMax test*/
+//        BST<Integer> bst = new BST<Integer>();
+//        Random rand = new Random();
+//
+//        int n = 1000;
+//        int bound = 10000;
+//        for (int i = 0; i < n; i++) {
+//            bst.add(rand.nextInt(bound));
+//        }
+//        // 得到的BST中不一定有n个数
+//        Array<Integer> arr = new Array<Integer>(n);
+//        while (!bst.isEmpty()) {
+//            arr.addLast(bst.removeMax());
+//        }
+//        System.out.println(arr);
+//        // 判断下arr是否从小到大
+//        for (int i = 1; i < arr.size(); i++) {
+//            if (arr.get(i) > arr.get(i-1)) {
+//                throw new IllegalArgumentException("Error");
+//            }
+//        }
+//        System.out.println("removeMax test completed");
 
-        int n = 1000;
-        int bound = 10000;
-        for (int i = 0; i < n; i++) {
-            bst.add(rand.nextInt(bound));
-        }
-        // 得到的BST中不一定有n个数
-        Array<Integer> arr = new Array<Integer>(n);
-        while (!bst.isEmpty()) {
-            arr.addLast(bst.removeMax());
-        }
-        System.out.println(arr);
-        // 判断下arr是否从小到大
-        for (int i = 1; i < arr.size(); i++) {
-            if (arr.get(i) > arr.get(i-1)) {
-                throw new IllegalArgumentException("Error");
-            }
-        }
-        System.out.println("removeMax test completed");
 
+        /*remove test*/
+        Integer[] data = {5,3,4,2,7,9};
+        BST<Integer> bst = new BST<>(data);
+        System.out.println(bst);
+        bst.remove(3);
+        System.out.println(bst);
     }
 }
