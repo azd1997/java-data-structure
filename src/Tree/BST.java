@@ -127,6 +127,47 @@ public class BST<E extends Comparable<E>> {
         preOrder(node.right);
     }
 
+    // 中序遍历(traverse)
+    // 适用场景：输出顺序序列
+    public void inOrder() {
+        inOrder(root);
+    }
+
+    private void inOrder(Node node) {
+        // 递归终止
+        if (node == null) return;
+
+        // 先遍历左子树
+        inOrder(node.left);
+
+        // 再处理当前节点
+        System.out.println(node.e);
+
+        // 最后遍历右子树
+        inOrder(node.right);
+    }
+
+
+    // 后序遍历(traverse)
+    // 适用场景：
+    // (1)二叉搜索树内存的释放(对于需要手动释放内存的语言)
+    // (2)需要先处理完子问题才能合并得到当前节点的问题的情况，例如分治...
+    public void postOrder() {
+        postOrder(root);
+    }
+
+    private void postOrder(Node node) {
+        // 递归终止
+        if (node == null) return;
+
+        // 先遍历左右子树
+        postOrder(node.left);
+        postOrder(node.right);
+
+        // 处理当前节点
+        System.out.println(node.e);
+    }
+
 
     private void generateBSTString(Node node, int depth, StringBuilder res) {
         if (node == null) {
@@ -159,7 +200,11 @@ public class BST<E extends Comparable<E>> {
         Integer[] data = {5,3,6,8,4,2};
         BST<Integer> bst = new BST<>(data);
         bst.preOrder();
+        System.out.println("=============");
+        bst.inOrder();
+        System.out.println("=============");
+        bst.postOrder();
 
-        System.out.println(bst);
+        //System.out.println(bst);
     }
 }
