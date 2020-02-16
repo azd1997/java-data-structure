@@ -1,7 +1,10 @@
 package Tree;
 
+import Array.Array;
 import Queue.ArrayQueue;
 import Stack.ArrayStack;
+
+import java.util.Random;
 
 // 二分搜索树
 // 节点的值必须是可比较类型: E extends Comparable<E>
@@ -202,6 +205,85 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    // 寻找树中最小值
+    public E minimum() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty.");
+        }
+        return minimum(root).e;
+    }
+
+    // 返回以node为根的最小值节点
+    private Node minimum(Node node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    // 寻找树中最大值
+    public E maximum() {
+        if (size == 0) {
+            throw new IllegalArgumentException("BST is empty.");
+        }
+        return maximum(root).e;
+    }
+
+    // 返回以node为根的最大值节点
+    private Node maximum(Node node) {
+        while (node.right != null) {
+            node = node.right;
+        }
+        return node;
+    }
+
+    // 删除树中最小值
+    public E removeMin() {
+        E min = minimum();
+        root = removeMin(root);
+        return min;
+    }
+
+    // 在以node为根的二分搜索树中，删除最小值，返回新的根
+    private Node removeMin(Node node) {
+        // 递归到底
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;  // 去除引用
+            size--;
+            return rightNode;
+        }
+
+        // 继续向左边走
+        node.left = removeMin(node.left);
+        // 最后返回node新根
+        return node;
+    }
+
+    // 删除树中最大值
+    public E removeMax() {
+        E max = maximum();
+        root = removeMax(root);
+        return max;
+    }
+
+    // 在以node为根的二分搜索树中，删除最大值，返回新的根
+    private Node removeMax(Node node) {
+        // 递归到底
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node.left = null;  // 去除引用
+            size--;
+            return leftNode;
+        }
+
+        // 继续向右边走
+        node.right = removeMax(node.right);
+        // 最后返回node新根
+        return node;
+    }
+
+    // 删除任意值
 
     private void generateBSTString(Node node, int depth, StringBuilder res) {
         if (node == null) {
@@ -231,16 +313,65 @@ public class BST<E extends Comparable<E>> {
 
 
     public static void main(String[] args) {
-        Integer[] data = {5,3,6,8,4,2};
-        BST<Integer> bst = new BST<>(data);
-        bst.preOrder();
-        System.out.println("=============");
-        bst.inOrder();
-        System.out.println("=============");
-        bst.postOrder();
-        System.out.println("=============");
-        bst.levelOrder();
+//        Integer[] data = {5,3,6,8,4,2};
+//        BST<Integer> bst = new BST<>(data);
+//        bst.preOrder();
+//        System.out.println("=============");
+//        bst.inOrder();
+//        System.out.println("=============");
+//        bst.postOrder();
+//        System.out.println("=============");
+//        bst.levelOrder();
 
         //System.out.println(bst);
+
+
+//        /*removeMin test*/
+//        BST<Integer> bst = new BST<Integer>();
+//        Random rand = new Random();
+//
+//        int n = 1000;
+//        int bound = 10000;
+//        for (int i = 0; i < n; i++) {
+//            bst.add(rand.nextInt(bound));
+//        }
+//        // 得到的BST中不一定有n个数
+//        Array<Integer> arr = new Array<Integer>(n);
+//        while (!bst.isEmpty()) {
+//            arr.addLast(bst.removeMin());
+//        }
+//        System.out.println(arr);
+//        // 判断下arr是否从小到大
+//        for (int i = 1; i < arr.size(); i++) {
+//            if (arr.get(i) < arr.get(i-1)) {
+//                throw new IllegalArgumentException("Error");
+//            }
+//        }
+//        System.out.println("removeMin test completed");
+
+
+        /*removeMax test*/
+        BST<Integer> bst = new BST<Integer>();
+        Random rand = new Random();
+
+        int n = 1000;
+        int bound = 10000;
+        for (int i = 0; i < n; i++) {
+            bst.add(rand.nextInt(bound));
+        }
+        // 得到的BST中不一定有n个数
+        Array<Integer> arr = new Array<Integer>(n);
+        while (!bst.isEmpty()) {
+            arr.addLast(bst.removeMax());
+        }
+        System.out.println(arr);
+        // 判断下arr是否从小到大
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr.get(i) > arr.get(i-1)) {
+                throw new IllegalArgumentException("Error");
+            }
+        }
+        System.out.println("removeMax test completed");
+
     }
 }
