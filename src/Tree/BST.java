@@ -1,5 +1,7 @@
 package Tree;
 
+import Stack.ArrayStack;
+
 // 二分搜索树
 // 节点的值必须是可比较类型: E extends Comparable<E>
 // 这里实现的BST不包含重复元素 left<node<right 如果重复元素加入，最终啥也不干
@@ -112,10 +114,12 @@ public class BST<E extends Comparable<E>> {
 
     // 前序遍历(traverse)
     public void preOrder() {
-        preOrder(root);
+        preOrder1(root);
+        //preOrder2(root);
     }
 
-    private void preOrder(Node node) {
+    // 递归实现前序遍历
+    private void preOrder1(Node node) {
         // 递归终止
         if (node == null) return;
 
@@ -123,8 +127,21 @@ public class BST<E extends Comparable<E>> {
         System.out.println(node.e);
 
         // 接着遍历左右子树
-        preOrder(node.left);
-        preOrder(node.right);
+        preOrder1(node.left);
+        preOrder1(node.right);
+    }
+
+    // 循环实现前序遍历(借助栈)
+    private void preOrder2(Node node) {
+        ArrayStack<Node> stack = new ArrayStack<Node>();
+        stack.push(node);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+
+            if (cur.right != null) stack.push(cur.right);
+            if (cur.left != null) stack.push(cur.left);
+        }
     }
 
     // 中序遍历(traverse)
