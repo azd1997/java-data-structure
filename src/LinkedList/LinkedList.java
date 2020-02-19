@@ -1,5 +1,7 @@
 package LinkedList;
 
+import java.util.ArrayList;
+
 public class LinkedList<E> {
 
     // 内部私有类 Node
@@ -164,6 +166,21 @@ public class LinkedList<E> {
         return remove(size - 1);
     }
 
+    // 删除元素
+    public void removeElement(E e) {
+        Node dummyHead = new Node(null, head);
+        Node pre = dummyHead;
+
+        while (pre.next != null) {
+            if (pre.next.e.equals(e)) {
+                pre.next = pre.next.next;
+                break;      // 只删除第一个匹配的节点
+            } else pre = pre.next;
+        }
+
+        head = dummyHead.next;      // 有可能head就是要删除的，所以要更新head
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
@@ -178,6 +195,18 @@ public class LinkedList<E> {
         res.append("null"); //末尾
 
         return res.toString();
+    }
+
+    public ArrayList<E> toArray() {
+        ArrayList<E> arrayList = new ArrayList<>();
+
+        Node cur = head.next;
+        while (cur != null) {
+            arrayList.add(cur.e);
+            cur = cur.next;
+        }
+
+        return arrayList;
     }
 
     public static void main(String[] args) {
