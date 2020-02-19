@@ -4,6 +4,7 @@ import Array.Array;
 import Queue.ArrayQueue;
 import Stack.ArrayStack;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 // 二分搜索树
@@ -328,6 +329,20 @@ public class BST<E extends Comparable<E>> {
         }
     }
 
+    // floor
+
+    // ceil
+
+    // 要实现rank和select，为每个节点维护一个size(以该节点为根的子树的节点数)
+
+    // rank(获取排名)
+
+    // select
+
+    // 维护depth的二叉搜索树
+
+    // 支持重复元素的二分搜索树（每个节点维护一个count，记录重复次数）
+
     private void generateBSTString(Node node, int depth, StringBuilder res) {
         if (node == null) {
             res.append(generateDepthString(depth)).append("null\n");
@@ -352,6 +367,21 @@ public class BST<E extends Comparable<E>> {
         StringBuilder res = new StringBuilder();
         generateBSTString(root, 0, res);
         return res.toString();
+    }
+
+    // 前序遍历，将结果保存在ArrayList
+    public ArrayList<E> toArray() {
+        ArrayList<E> es = new ArrayList<>();
+        toArray(root, es);
+        return es;
+    }
+
+    private void toArray(Node node, ArrayList<E> es) {
+        if (node == null) return;
+
+        es.add(node.e);
+        toArray(node.left, es);
+        toArray(node.right, es);
     }
 
 
@@ -417,11 +447,18 @@ public class BST<E extends Comparable<E>> {
 //        System.out.println("removeMax test completed");
 
 
-        /*remove test*/
+//        /*remove test*/
+//        Integer[] data = {5,3,4,2,7,9};
+//        BST<Integer> bst = new BST<>(data);
+//        System.out.println(bst);
+//        bst.remove(3);
+//        System.out.println(bst);
+
+        /*toArray test*/
         Integer[] data = {5,3,4,2,7,9};
         BST<Integer> bst = new BST<>(data);
         System.out.println(bst);
-        bst.remove(3);
-        System.out.println(bst);
+        ArrayList<Integer> es = bst.toArray();
+        System.out.println(es);
     }
 }
