@@ -8,6 +8,7 @@ import java.util.ArrayList;
 // 链表并不要求元素具备可比性
 public class LinkedListSet<E> implements Set<E> {
 
+    // 基于单链表的集合其增(增之前要先查)/删/查操作复杂度都为O(n)
     private LinkedList<E> list;
 
     public LinkedListSet() {
